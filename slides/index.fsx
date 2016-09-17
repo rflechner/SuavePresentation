@@ -20,28 +20,72 @@
     [lang=shell]
     paket add nuget Suave -i
 
----
 *)
 
 (*** hide ***)
 #I @"../packages/Suave/lib/net40"
 #r "Suave.dll"
 
-(*
+(**
+---
+
 ## Write a tiny peace of code
-ppp
+
+    [lang=fsharp]
+    open Suave
+    open System.Net
+
+    let config =
+      { defaultConfig
+          with bindings =
+                [ HttpBinding.mk HTTP IPAddress.Loopback 8000us ] }
+    startWebServer config (Successful.OK "Hello World!")
+
+The URL http://localhost:8000/
+should return "Hello World!" as content
+
+---
+### Enjoy :)
+
+![Image of example1](images/screen1.png)
+
+---
+
 *)
 
-open Suave
-open System.Net
+(*** hide ***)
 
-let config =
-  { defaultConfig
-      with bindings =
-            [ HttpBinding.mk HTTP IPAddress.Loopback 80us ] }
-startWebServer config (Successful.OK "Hello World!")
+//let config2 =
+//  { defaultConfig
+//      with bindings =
+//            [ HttpBinding.mk HTTP IPAddress.Loopback 8001us ] }
 
-(*
+(**
+### Routing requests
+
+    [lang=fsharp]
+    open Suave.Filters
+    open Suave.Operators
+    open Suave.Successful
+
+    let app =
+      choose // combines 'post' and 'get' WebPart
+        [ GET >=> choose // combines both WebParts
+            [ path "/hello" >=> OK "Hello GET"
+              path "/goodbye" >=> OK "Good bye GET" ]
+          POST >=> choose // combines both WebParts
+            [ path "/hello" >=> OK "Hello POST"
+              path "/goodbye" >=> OK "Good bye POST" ] ]
+    // passing the final WebPart to the HTTP server
+    startWebServer config app
+
+---
+
+### Trying ...
+
+![Image of example2](images/screen2.png)
+
+phew! it works :)
 
 ***
 
