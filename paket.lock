@@ -52,12 +52,18 @@ NUGET
       System.Threading.Tasks (>= 4.0.11) - framework: >= netstandard10
       System.Xml.ReaderWriter (>= 4.0.11) - framework: >= netstandard10
       System.Xml.XDocument (>= 4.0.11) - framework: >= netstandard10
+    SharpZipLib (0.86)
     Suave (1.1.3)
       FSharp.Core (>= 3.1.2.5)
     Suave.RouteTypeProvider (0.0.3-alpha)
       FSharp.Core
       Newtonsoft.Json (>= 9.0.1)
       Suave (>= 1.1.3)
+    Suave.Swagger (1.0)
+      FSharp.Core
+      Newtonsoft.Json
+      SharpZipLib
+      Suave
     System.Collections (4.0.11) - framework: >= netstandard10
       Microsoft.NETCore.Platforms (>= 1.0.1) - framework: dnxcore50, netstandard10, >= netstandard13
       Microsoft.NETCore.Targets (>= 1.0.1) - framework: dnxcore50, netstandard10, >= netstandard13
