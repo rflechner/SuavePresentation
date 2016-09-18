@@ -27,7 +27,7 @@ let app =
        [ path "/hello" >=> OK "Hello GET"
          path "/goodbye" >=> OK "Good bye GET"
 
-         Routes.SayBonjour.Returns(fun m -> OK <| sprintf "bonjour %s" m.FirstName)
+//         Routes.SayBonjour.Returns(fun m -> OK <| sprintf "bonjour %s" m.FirstName)
 
          Routes.FindUserById.Returns(fun m -> OK <| sprintf "id is: %A" m.id)
          Routes.AdditionRoute.Returns(fun m -> OK <| (m.value1 + m.value2).ToString())
@@ -40,6 +40,7 @@ let app =
      POST >=> choose // combines both WebParts
        [ path "/hello" >=> OK "Hello POST"
          path "/goodbye" >=> OK "Good bye POST" ] ]
+
 
 
 // passing the final WebPart to the HTTP server

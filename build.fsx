@@ -10,10 +10,10 @@
 
 // Git configuration (used for publishing documentation in gh-pages branch)
 // The profile where the project is posted
-let gitOwner = "myGitUser"
+let gitOwner = "rflechner"
 let gitHome = "https://github.com/" + gitOwner
 // The name of the project on GitHub
-let gitProjectName = "MyProject"
+let gitProjectName = "SuavePresentation"
 
 open FsReveal
 open Fake
@@ -63,6 +63,7 @@ let generateFor (file:FileInfo) =
         traceImportant "images copied !!"
         let rec tryGenerate trials =
             try
+                traceImportant "FsReveal.GenerateFromFile"
                 FsReveal.GenerateFromFile(file.FullName, outDir, fsiEvaluator = fsiEvaluator)
             with
             | exn when trials > 0 -> tryGenerate (trials - 1)
@@ -70,9 +71,13 @@ let generateFor (file:FileInfo) =
                 traceImportant <| sprintf "Could not generate slides for: %s" file.FullName
                 traceImportant exn.Message
 
-        tryGenerate 3
+        traceImportant "try to generate documentation"
+        tryGenerate 0
+        traceImportant "documentation generated"
 
+        traceImportant "copying css"
         copyStylesheet()
+        traceImportant "css copied"
     with
     | :? FileNotFoundException as exn ->
         traceImportant <| sprintf "Could not copy file: %s" exn.FileName

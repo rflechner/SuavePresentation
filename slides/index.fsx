@@ -68,7 +68,7 @@ ___ Or with NuGet ___
       { defaultConfig
           with bindings =
                 [ HttpBinding.mk HTTP IPAddress.Loopback 8000us ] }
-    startWebServer config (Successful.OK "Hello World!")
+    // startWebServer config (Successful.OK "Hello World!")
 
 The URL http://localhost:8000/   should return "Hello World!" as content
 
@@ -95,7 +95,7 @@ The URL http://localhost:8000/   should return "Hello World!" as content
             [ path "/hello" >=> OK "Hello POST"
               path "/goodbye" >=> OK "Good bye POST" ] ]
     // passing the final WebPart to the HTTP server
-    startWebServer config app
+    // startWebServer config app
 
 ---
 
@@ -143,7 +143,7 @@ So n1 and n2 are integers :)
 let analyse (pf : PrintfFormat<_,_,_,_,'t>) =
   match typeof<'t> with
   | ty when ty.IsPrimitive -> sprintf "Primitive type of %s " ty.Name
-  | ty -> 
+  | ty ->
     let names =
       ty.GetGenericArguments()
       |> Seq.map (fun pt -> pt.Name)
@@ -191,7 +191,12 @@ https://rflechner.github.io/Suave.RouteTypeProvider/
 
 ![screen3](images/screen3.gif)
 
+***
+
+### Testing and documenting
+
+## Swagger is great !
+
+
+
 *)
-
-
-
