@@ -157,5 +157,41 @@ let log2 = analyse "/add/%d/%d/%s"
 (*** include-value: log1 ***)
 (*** include-value: log2 ***)
 
+(**
+---
+###
+
+So we can write something like:
+
+*)
+let pathTemplate (pf : PrintfFormat<_,_,_,_,'t>) (callback:'t -> unit)=
+  failwith "not implemented"
+
+pathTemplate "/add/%d/%d" (fun (n1:int,n2:int) -> failwith "not implemented")
+
+(**
+
+***
+## Extending Suave
+
+---
+
+### How to have named route params ?
+
+The pathScan function doesn't name parameters.
+
+So they can be confused when they are many.
+
+---
+
+### A solution could be a type provider
+
+
+https://rflechner.github.io/Suave.RouteTypeProvider/
+
+![screen3](images/screen3.gif)
+
+*)
+
 
 
