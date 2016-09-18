@@ -7,6 +7,19 @@
 
 ***
 
+*)
+
+(*** hide ***)
+#I @"../packages/Suave/lib/net40"
+#r "Suave.dll"
+
+open Suave
+open System.Net
+open Suave.Filters
+open Suave.Operators
+open Suave.Successful
+
+(**
 ### Have fun with Suave and FSharp
 
 <img src="images/fsharp128.png" height="100">
@@ -24,8 +37,10 @@ Made for fsharpparis
 
 ***
 
-## How to start we Suave ?
+- id : discover Suave
 
+
+## How to start we Suave ?
 
 ---
 
@@ -91,8 +106,56 @@ The URL http://localhost:8000/   should return "Hello World!" as content
 phew! it works :)
 
 ***
+- id : typed routes
 
 # Typed routes
 
+---
+
+## The pathScan function
 
 *)
+let app =
+  GET >=> choose // combines both WebParts
+       [ path "/hello" >=> OK "Hello GET"
+         pathScan "/add/%d/%d" (
+              fun (n1,n2) ->
+                OK <| sprintf "%d" (n1 + n2)
+            ) ]
+(**
+
+The pathScan function uses the url template to create a strongly typed function.
+
+So n1 and n2 are integers :)
+
+---
+
+## Nothing is magic
+
+<img src="images/magic_hat.svg" width="300">
+
+---
+
+### The power of PrintfFormat
+
+*)
+
+let analyse (pf : PrintfFormat<_,_,_,_,'t>) =
+  match typeof<'t> with
+  | ty when ty.IsPrimitive -> sprintf "Primitive type of %s " ty.Name
+  | ty -> 
+    let names =
+      ty.GetGenericArguments()
+      |> Seq.map (fun pt -> pt.Name)
+      |> Seq.toList
+    sprintf "Generic of %A" names
+
+let log1 = analyse "/stringify/%d"
+let log2 = analyse "/add/%d/%d/%s"
+
+(** log1 and log2 are:  *)
+(*** include-value: log1 ***)
+(*** include-value: log2 ***)
+
+
+
