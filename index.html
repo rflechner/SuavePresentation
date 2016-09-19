@@ -271,11 +271,11 @@
 </section>
 </section>
 <section >
-<section >
-<h2>Extending Suave</h2>
+<h1>Extending Suave</h1>
 </section>
 <section >
-<h3>How to have named route params ?</h3>
+<section >
+<h2>How to have named and typed route params ?</h2>
 <p>The pathScan function doesn't name parameters.</p>
 <p>So they can be confused when they are many.</p>
 </section>
@@ -284,10 +284,47 @@
 <p><a href="https://rflechner.github.io/Suave.RouteTypeProvider/">https://rflechner.github.io/Suave.RouteTypeProvider/</a></p>
 <p><img src="images/screen3.gif" alt="screen3" /></p>
 </section>
+<section >
+<h3>Benefits</h3>
+<ul>
+<li>Strongly typed routes</li>
+<li>Better code organization ( routes declared in types )</li>
+<li>Autocompletion when typing routes handlers ( fun )</li>
+</ul>
+</section>
 </section>
 <section >
-<h3>Testing and documenting</h3>
-<h2>Swagger is great !</h2>
+<section >
+<h2>Testing and documenting</h2>
+</section>
+<section >
+<h3>Swagger is great !</h3>
+<p><a href="http://petstore.swagger.io/#/pet">http://petstore.swagger.io/#/pet</a></p>
+<img src="images/swagger1.png" width="500">
+</section>
+<section >
+<h3>What is it ?</h3>
+<ul>
+<li>Representation of your RESTful API</li>
+<li>Interactive generated documentation</li>
+<li>client SDK generation</li>
+<li>discoverability (like WSDL)</li>
+</ul>
+</section>
+<section >
+<h3>Swagger for Suave ?</h3>
+</section>
+<section >
+<h4>Problem:</h4>
+<ul>
+<li>Routes are pure fonctions and NOT discoverables</li>
+</ul>
+<h4>Solution :</h4>
+<ul>
+<li>Wrapping functions to keep informations</li>
+<li>Computation expression ( Monoid ?? )</li>
+</ul>
+</section>
 </section>
 
 
