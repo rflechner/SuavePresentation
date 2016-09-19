@@ -172,11 +172,11 @@ pathTemplate "/add/%d/%d" (fun (n1:int,n2:int) -> failwith "not implemented")
 (**
 
 ***
-## Extending Suave
+# Extending Suave
 
----
+***
 
-### How to have named route params ?
+## How to have named and typed route params ?
 
 The pathScan function doesn't name parameters.
 
@@ -186,16 +186,54 @@ So they can be confused when they are many.
 
 ### A solution could be a type provider
 
-
 https://rflechner.github.io/Suave.RouteTypeProvider/
 
 ![screen3](images/screen3.gif)
 
+---
+
+### Benefits
+
+- Strongly typed routes
+- Better code organization ( routes declared in types )
+- Autocompletion when typing routes handlers ( fun )
+
 ***
 
-### Testing and documenting
+## Testing and documenting
 
-## Swagger is great !
+---
+
+### Swagger is great !
+
+http://petstore.swagger.io/#/pet
+
+<img src="images/swagger1.png" width="500">
+
+---
+
+### What is it ?
+
+- Representation of your RESTful API
+- Interactive generated documentation
+- client SDK generation
+- discoverability (like WSDL)
+
+---
+
+### Swagger for Suave ?
+
+---
+
+#### Problem:
+ - Routes are pure fonctions and NOT discoverables
+
+#### Solution :
+ - Wrapping functions to keep informations
+ - Computation expression ( Monoid ?? )
+
+---
+
 
 
 
