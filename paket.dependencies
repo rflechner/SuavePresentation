@@ -6,4 +6,3 @@ nuget Suave
 nuget Newtonsoft.Json
 nuget Suave.RouteTypeProvider
 nuget Suave.Swagger
-

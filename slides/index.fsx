@@ -13,6 +13,10 @@
 #I @"../packages/Suave/lib/net40"
 #r "Suave.dll"
 
+#I @"../packages/Suave.Swagger/lib"
+#r "Suave.Swagger.dll"
+
+open System
 open Suave
 open System.Net
 open Suave.Filters
@@ -230,11 +234,162 @@ http://petstore.swagger.io/#/pet
 
 #### Solution :
  - Wrapping functions to keep informations
- - Computation expression ( Monoid ?? )
+ - Computation expression
 
 ---
 
+### How to swagger your Sauve project ?
 
+Go to
 
+- https://rflechner.github.io/Suave.Swagger/
+
+- Or https://www.nuget.org/packages/Suave.Swagger/
+
+---
+
+### Getting started
+
+---
+
+#### Tiny example
+
+We want to create an API returning current time.
+
+##### In a " classic " mode
+
+*)
+
+let now1 : WebPart =
+  fun (x : HttpContext) ->
+    async {
+      return! OK (DateTime.Now.ToString()) x
+    }
+//[<EntryPoint>]
+let main argv =
+  let time1 = GET >=> path "/time1" >=> now1
+  //startWebServer defaultConfig time1
+  0 // return an integer exit code
+
+(**
+
+---
+
+##### With the verbose DSL
+
+*)
+
+open Suave.Swagger
+open Rest
+open FunnyDsl
+open Swagger
+
+let now2 : WebPart =
+  fun (x : HttpContext) ->
+    async {
+      return! MODEL DateTime.Now x
+    }
+let api1 =
+  swagger {
+    for route in getting (simpleUrl "/time" |> thenReturns now2) do
+      yield description Of route is "What time is it ?"
+  }
+//startWebServer defaultConfig api1.App
+
+(**
+---
+##### Result
+
+Go to http://localhost:8083/swagger/v2/ui/index.html
+
+<img src="images/swagger2.gif" width="600">
+
+***
+
+# Concrete and unusual using case
+
+---
+
+We want to create an API sending and receiving SMS for a personal and domotic projects.
+
+<img src="images/robot_and_phones.jpg" width="600">
+
+The robot must send SMS using old smartphones.
+
+---
+
+So I created a REST API hosted under Android.
+
+The project is here: https://github.com/rflechner/SmsServer
+
+<img src="images/Screenshot_20160920-230341.png" width="200">
+
+( Wow really beautiful UI ^^ )
+
+---
+
+## Xamarin
+
+Suave exists in the Xamarin components store
+
+![xamarin studio](images/xamarin_studio1.png)
+
+---
+
+## Project structure
+
+- The UI is in a PCL project using Xamarin.Forms
+- The Android project is using the PCL to bind UI elements with their behaviors
+- Swagger DSL source code is temporary copied in the Android project.
+
+---
+
+## Focus on the API code
+
+#### Models
+
+*)
+
+[<CLIMutable>]
+type SmsModel = {
+  Id:int
+  Address:string
+  Body:string
+  Date:DateTime
+}
+and [<CLIMutable>] SendSmsModel = {
+  Destination:string
+  Body:string
+}
+and [<CLIMutable>] SendSmsResult = {
+  Success:bool
+  Sms:SendSmsModel
+}
+
+(**
+
+---
+
+#### To know about Android
+
+The most of phone's data we need are stored in system's SQlite databases.
+
+So this snippet will help us to get them quickly.
+
+    [lang=fsharp]
+    let readAllRows (context:Context) uri =
+      let cr = context.ContentResolver
+      use c = cr.Query(Android.Net.Uri.Parse uri, null, null, null, null)
+      let names = c.GetColumnNames()
+      c.MoveToFirst() |> ignore
+      seq {
+        for _ in 0 .. c.Count-1 do
+          let row = names
+            |> Seq.map (fun name -> name, c.GetString(c.GetColumnIndex name))
+            |> dict
+          yield row
+          c.MoveToNext() |> ignore
+        c.Close()
+      } |> Seq.toArray
 
 *)
