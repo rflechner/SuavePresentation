@@ -392,4 +392,44 @@ So this snippet will help us to get them quickly.
         c.Close()
       } |> Seq.toArray
 
+---
+
+#### Then most useful functions will be
+
+    [lang=fsharp]
+    let getContacts context =
+      let uri = Android.Provider.ContactsContract.CommonDataKinds.Phone.ContentUri.ToString()
+      readAllRows context uri
+    let listSentSms context skip limit =
+        match skip with
+        | Some n -> listSms context "content://sms/sent" n limit
+        | None -> listSms context "content://sms/sent" 0 limit
+    let listInboxSms context skip limit =
+      match skip with
+      | Some n -> listSms context "content://sms/inbox" n limit
+      | None -> listSms context "content://sms/inbox" 0 limit
+    // etc ...
+
+---
+
+#### Now writing API
+
+    [lang=fsharp]
+
+    let api =
+      swagger {
+          for route in getting (simpleUrl "/contacts" |> thenReturns contacts) do
+            yield description Of route is "contacts"
+
+          for route in getting (simpleUrl "/sms/sent" |> thenReturns (sentSmsWp context)) do
+            // this is the raw description of the REST method
+            yield description Of route is "Get last 20 sent SMS"
+            // we can provide a type per response code
+            yield route |> addResponse 200 "The found messages" (Some typeof<SmsModel>)
+      }
+
+***
+
+# DEMO
+
 *)
