@@ -44,7 +44,7 @@ Made for fsharpparis
 - id : discover Suave
 
 
-## How to start we Suave ?
+## How to start with Suave ?
 
 ---
 
@@ -385,7 +385,9 @@ So this snippet will help us to get them quickly.
       seq {
         for _ in 0 .. c.Count-1 do
           let row = names
-            |> Seq.map (fun name -> name, c.GetString(c.GetColumnIndex name))
+            |> Seq.map (
+                fun name ->
+                      name, c.GetString(c.GetColumnIndex name))
             |> dict
           yield row
           c.MoveToNext() |> ignore
@@ -398,7 +400,8 @@ So this snippet will help us to get them quickly.
 
     [lang=fsharp]
     let getContacts context =
-      let uri = Android.Provider.ContactsContract.CommonDataKinds.Phone.ContentUri.ToString()
+      let uri = Android.Provider.ContactsContract
+                  .CommonDataKinds.Phone.ContentUri.ToString()
       readAllRows context uri
     let listSentSms context skip limit =
         match skip with
@@ -418,14 +421,18 @@ So this snippet will help us to get them quickly.
 
     let api =
       swagger {
-          for route in getting (simpleUrl "/contacts" |> thenReturns contacts) do
-            yield description Of route is "contacts"
+        for route in getting (simpleUrl "/contacts"
+                              |> thenReturns contacts) do
+          yield description Of route is "contacts"
 
-          for route in getting (simpleUrl "/sms/sent" |> thenReturns (sentSmsWp context)) do
-            // this is the raw description of the REST method
-            yield description Of route is "Get last 20 sent SMS"
-            // we can provide a type per response code
-            yield route |> addResponse 200 "The found messages" (Some typeof<SmsModel>)
+        for route in getting (simpleUrl "/sms/sent"
+                               |> thenReturns (sentSmsWp context)) do
+          // this is the raw description of the REST method
+          yield description Of route is "Get last 20 sent SMS"
+          // we can provide a type per response code
+          yield route
+                |> addResponse 200 "The found messages"
+                    (Some typeof<SmsModel>)
       }
 
 ***
