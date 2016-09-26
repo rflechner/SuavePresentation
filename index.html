@@ -166,7 +166,7 @@
 </section>
 <section >
 <section id="discover Suave">
-<h2>How to start we Suave ?</h2>
+<h2>How to start with Suave ?</h2>
 </section>
 <section >
 <h3>Install Suave NuGet</h3>
@@ -556,6 +556,8 @@
 <span class="l">12: </span>
 <span class="l">13: </span>
 <span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs81', 132)" onmouseover="showTip(event, 'fs81', 132)" class="f">readAllRows</span> (<span onmouseout="hideTip(event, 'fs82', 133)" onmouseover="showTip(event, 'fs82', 133)" class="i">context</span><span class="o">:</span><span class="i">Context</span>) <span onmouseout="hideTip(event, 'fs83', 134)" onmouseover="showTip(event, 'fs83', 134)" class="i">uri</span> <span class="o">=</span>
   <span class="k">let</span> <span onmouseout="hideTip(event, 'fs84', 135)" onmouseover="showTip(event, 'fs84', 135)" class="i">cr</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs82', 136)" onmouseover="showTip(event, 'fs82', 136)" class="i">context</span><span class="o">.</span><span class="i">ContentResolver</span>
@@ -565,7 +567,9 @@
   <span onmouseout="hideTip(event, 'fs88', 144)" onmouseover="showTip(event, 'fs88', 144)" class="i">seq</span> {
     <span class="k">for</span> _ <span class="k">in</span> <span class="n">0</span> <span class="o">..</span> <span onmouseout="hideTip(event, 'fs85', 145)" onmouseover="showTip(event, 'fs85', 145)" class="i">c</span><span class="o">.</span><span class="i">Count</span><span class="o">-</span><span class="n">1</span> <span class="k">do</span>
       <span class="k">let</span> <span onmouseout="hideTip(event, 'fs89', 146)" onmouseover="showTip(event, 'fs89', 146)" class="i">row</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs86', 147)" onmouseover="showTip(event, 'fs86', 147)" class="i">names</span>
-        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 148)" onmouseover="showTip(event, 'fs30', 148)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 149)" onmouseover="showTip(event, 'fs31', 149)" class="i">map</span> (<span class="k">fun</span> <span class="i">name</span> <span class="k">-&gt;</span> <span class="i">name</span>, <span onmouseout="hideTip(event, 'fs85', 150)" onmouseover="showTip(event, 'fs85', 150)" class="i">c</span><span class="o">.</span><span class="i">GetString</span>(<span onmouseout="hideTip(event, 'fs85', 151)" onmouseover="showTip(event, 'fs85', 151)" class="i">c</span><span class="o">.</span><span class="i">GetColumnIndex</span> <span class="i">name</span>))
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 148)" onmouseover="showTip(event, 'fs30', 148)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 149)" onmouseover="showTip(event, 'fs31', 149)" class="i">map</span> (
+            <span class="k">fun</span> <span class="i">name</span> <span class="k">-&gt;</span>
+                  <span class="i">name</span>, <span onmouseout="hideTip(event, 'fs85', 150)" onmouseover="showTip(event, 'fs85', 150)" class="i">c</span><span class="o">.</span><span class="i">GetString</span>(<span onmouseout="hideTip(event, 'fs85', 151)" onmouseover="showTip(event, 'fs85', 151)" class="i">c</span><span class="o">.</span><span class="i">GetColumnIndex</span> <span class="i">name</span>))
         <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs90', 152)" onmouseover="showTip(event, 'fs90', 152)" class="i">dict</span>
       <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs89', 153)" onmouseover="showTip(event, 'fs89', 153)" class="i">row</span>
       <span onmouseout="hideTip(event, 'fs85', 154)" onmouseover="showTip(event, 'fs85', 154)" class="i">c</span><span class="o">.</span><span class="i">MoveToNext</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs87', 155)" onmouseover="showTip(event, 'fs87', 155)" class="i">ignore</span>
@@ -589,9 +593,11 @@
 <span class="l">10: </span>
 <span class="l">11: </span>
 <span class="l">12: </span>
+<span class="l">13: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs92', 159)" onmouseover="showTip(event, 'fs92', 159)" class="f">getContacts</span> <span onmouseout="hideTip(event, 'fs82', 160)" onmouseover="showTip(event, 'fs82', 160)" class="i">context</span> <span class="o">=</span>
-  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs93', 161)" onmouseover="showTip(event, 'fs93', 161)" class="i">uri</span> <span class="o">=</span> <span class="i">Android</span><span class="o">.</span><span class="i">Provider</span><span class="o">.</span><span class="i">ContactsContract</span><span class="o">.</span><span class="i">CommonDataKinds</span><span class="o">.</span><span class="i">Phone</span><span class="o">.</span><span class="i">ContentUri</span><span class="o">.</span><span class="i">ToString</span>()
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs93', 161)" onmouseover="showTip(event, 'fs93', 161)" class="i">uri</span> <span class="o">=</span> <span class="i">Android</span><span class="o">.</span><span class="i">Provider</span><span class="o">.</span><span class="i">ContactsContract</span>
+              <span class="o">.</span><span class="i">CommonDataKinds</span><span class="o">.</span><span class="i">Phone</span><span class="o">.</span><span class="i">ContentUri</span><span class="o">.</span><span class="i">ToString</span>()
   <span onmouseout="hideTip(event, 'fs81', 162)" onmouseover="showTip(event, 'fs81', 162)" class="f">readAllRows</span> <span onmouseout="hideTip(event, 'fs82', 163)" onmouseover="showTip(event, 'fs82', 163)" class="i">context</span> <span onmouseout="hideTip(event, 'fs93', 164)" onmouseover="showTip(event, 'fs93', 164)" class="i">uri</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs94', 165)" onmouseover="showTip(event, 'fs94', 165)" class="f">listSentSms</span> <span onmouseout="hideTip(event, 'fs82', 166)" onmouseover="showTip(event, 'fs82', 166)" class="i">context</span> <span onmouseout="hideTip(event, 'fs95', 167)" onmouseover="showTip(event, 'fs95', 167)" class="i">skip</span> <span onmouseout="hideTip(event, 'fs96', 168)" onmouseover="showTip(event, 'fs96', 168)" class="i">limit</span> <span class="o">=</span>
     <span class="k">match</span> <span onmouseout="hideTip(event, 'fs95', 169)" onmouseover="showTip(event, 'fs95', 169)" class="i">skip</span> <span class="k">with</span>
@@ -619,17 +625,25 @@
 <span class="l"> 9: </span>
 <span class="l">10: </span>
 <span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs101', 191)" onmouseover="showTip(event, 'fs101', 191)" class="i">api</span> <span class="o">=</span>
   <span class="i">swagger</span> {
-      <span class="k">for</span> <span class="i">route</span> <span class="k">in</span> <span class="i">getting</span> (<span class="i">simpleUrl</span> <span class="s">&quot;/contacts&quot;</span> <span class="o">|&gt;</span> <span class="i">thenReturns</span> <span class="i">contacts</span>) <span class="k">do</span>
-        <span class="k">yield</span> <span class="i">description</span> <span class="i">Of</span> <span class="i">route</span> <span class="i">is</span> <span class="s">&quot;contacts&quot;</span>
+    <span class="k">for</span> <span class="i">route</span> <span class="k">in</span> <span class="i">getting</span> (<span class="i">simpleUrl</span> <span class="s">&quot;/contacts&quot;</span>
+                          <span class="o">|&gt;</span> <span class="i">thenReturns</span> <span class="i">contacts</span>) <span class="k">do</span>
+      <span class="k">yield</span> <span class="i">description</span> <span class="i">Of</span> <span class="i">route</span> <span class="i">is</span> <span class="s">&quot;contacts&quot;</span>
 
-      <span class="k">for</span> <span class="i">route</span> <span class="k">in</span> <span class="i">getting</span> (<span class="i">simpleUrl</span> <span class="s">&quot;/sms/sent&quot;</span> <span class="o">|&gt;</span> <span class="i">thenReturns</span> (<span class="i">sentSmsWp</span> <span class="i">context</span>)) <span class="k">do</span>
-        <span class="c">// this is the raw description of the REST method</span>
-        <span class="k">yield</span> <span class="i">description</span> <span class="i">Of</span> <span class="i">route</span> <span class="i">is</span> <span class="s">&quot;Get last 20 sent SMS&quot;</span>
-        <span class="c">// we can provide a type per response code</span>
-        <span class="k">yield</span> <span class="i">route</span> <span class="o">|&gt;</span> <span class="i">addResponse</span> <span class="n">200</span> <span class="s">&quot;The found messages&quot;</span> (<span onmouseout="hideTip(event, 'fs97', 192)" onmouseover="showTip(event, 'fs97', 192)" class="i">Some</span> <span onmouseout="hideTip(event, 'fs102', 193)" onmouseover="showTip(event, 'fs102', 193)" class="i">typeof</span><span class="o">&lt;</span><span class="i">SmsModel</span><span class="o">&gt;</span>)
+    <span class="k">for</span> <span class="i">route</span> <span class="k">in</span> <span class="i">getting</span> (<span class="i">simpleUrl</span> <span class="s">&quot;/sms/sent&quot;</span>
+                           <span class="o">|&gt;</span> <span class="i">thenReturns</span> (<span class="i">sentSmsWp</span> <span class="i">context</span>)) <span class="k">do</span>
+      <span class="c">// this is the raw description of the REST method</span>
+      <span class="k">yield</span> <span class="i">description</span> <span class="i">Of</span> <span class="i">route</span> <span class="i">is</span> <span class="s">&quot;Get last 20 sent SMS&quot;</span>
+      <span class="c">// we can provide a type per response code</span>
+      <span class="k">yield</span> <span class="i">route</span>
+            <span class="o">|&gt;</span> <span class="i">addResponse</span> <span class="n">200</span> <span class="s">&quot;The found messages&quot;</span>
+                (<span onmouseout="hideTip(event, 'fs97', 192)" onmouseover="showTip(event, 'fs97', 192)" class="i">Some</span> <span onmouseout="hideTip(event, 'fs102', 193)" onmouseover="showTip(event, 'fs102', 193)" class="i">typeof</span><span class="o">&lt;</span><span class="i">SmsModel</span><span class="o">&gt;</span>)
   }
 </code></pre></td>
 </tr>
